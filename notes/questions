@@ -11,3 +11,5 @@ when are things like '|val|' and {} used?
 does ruby support the functional paradigm? because I get the feeling it does.
 
 what is :dog? is it a variable? a symbol? a record?
+
+in the standard ruby libraries, does the ! in !-punctuated methods (e.g. Array#sort!) indicate that the method is in-place? has side-effects? modifies the input? what does it mean? 

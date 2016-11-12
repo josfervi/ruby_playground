@@ -44,3 +44,7 @@ puts(
   'third_greatest([2, 3, 7, 4]) == 3: ' +
   (third_greatest([2, 3, 7, 4]) == 3).to_s
 )
+puts(
+  'third_greatest([3, 3, 3, 2, 1]) == 3: ' +
+  (third_greatest([3, 3, 3, 2, 1]) == 3).to_s
+)
