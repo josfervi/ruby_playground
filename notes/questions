@@ -1,0 +1,13 @@
+QUESTIONS
+
+what is a memo?  (see reduce: https://ruby-doc.org/core-2.1.0/Enumerable.html#method-i-reduce)
+what is a block? (see reduce: https://ruby-doc.org/core-2.1.0/Enumerable.html#method-i-reduce)
+
+how to map? e.g. "abcde".map { |chr| 1 if chr.vowel? else 0 } #=> [1,0,0,0,1]
+
+what does ruby 'do' do?
+when are things like '|val|' and {} used?
+
+does ruby support the functional paradigm? because I get the feeling it does.
+
+what is :dog? is it a variable? a symbol? a record?
