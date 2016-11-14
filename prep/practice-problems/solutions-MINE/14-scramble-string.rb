@@ -5,6 +5,14 @@
 # Difficulty: medium.
 
 def scramble_string(string, positions)
+  
+  res= ''
+  
+  for position in positions
+    res+= string[position]
+  end
+  
+  return res
 end
 
 # These are tests to check that your code is working. After writing

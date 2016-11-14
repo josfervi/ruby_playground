@@ -12,9 +12,14 @@ def capitalize_words(string)
   
   words= string.split(' ')
   
-  for word,idx in words.map.with_index
-    words[idx]= word[0].upcase + word[1..-1]
+  for idx in 0..words.length-1
+    word= words[idx]
+    word[0]= word[0].upcase
   end
+    
+  # for word,idx in words.map.with_index
+  #   words[idx]= word[0].upcase + word[1..-1] # requires unnecessary slicing and concatenation which lns 16 and 17 do not
+  # end
   
   return words.join(' ')
   

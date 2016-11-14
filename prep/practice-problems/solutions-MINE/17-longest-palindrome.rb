@@ -16,20 +16,43 @@
 #
 # Difficulty: hard.
 
+# tail recursive because && short circuits
 def palindrome?(string)
-  i = 0
-  while i < string.length
-    if string[i] != string[(string.length - 1) - i]
-      return false
+    if string == "" || string.length == 1
+        return true
     end
-
-    i += 1
-  end
-
-  return true
+    return (string[0] == string[-1]) && palindrome?(string[1..-2])
+  # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^because && short circs, the above is equivalent to
+    #  if string[0] == string[-1]: return false
+    #  return palindrome?(string[1..-2)
 end
 
 def longest_palindrome(string)
+  
+  max_len= 0
+  max_pal= ''
+  
+  starting_idx= 0 # starting index of longest palindrome candidate
+  
+  while starting_idx + max_len < string.length
+    
+    len= string.length - starting_idx # length of longest palindrome candidate
+    
+    while len > max_len
+      candidate= string[starting_idx, len] #.slice(starting_idx, len) # longest palindrom candidate
+      if palindrome?(candidate)
+        max_len= len
+        max_pal= candidate
+        break
+      end
+      
+      len-= 1
+    end
+    
+    starting_idx+= 1
+  end
+  
+  return max_pal
 end
 
 # These are tests to check that your code is working. After writing
