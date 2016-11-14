@@ -1,0 +1,24 @@
+UNANSWERED
+
+what is a memo?  (see reduce: https://ruby-doc.org/core-2.1.0/Enumerable.html#method-i-reduce)
+what is a block? (see reduce: https://ruby-doc.org/core-2.1.0/Enumerable.html#method-i-reduce)
+
+how to map? e.g. "abcde".map { |chr| 1 if chr.vowel? else 0 } #=> [1,0,0,0,1]
+
+what does ruby 'do' do?
+when are things like '|val|' and {} used?
+
+does ruby support the functional paradigm? because I get the feeling it does.
+
+what is a symbol (e.g. :dog) in ruby? how's it different from a variable?
+
+in the standard ruby libraries, does the ! in !-punctuated methods (e.g. Array#sort!) indicate that the method is in-place? has side-effects? modifies the input? what does it mean?
+
+how does ruby disambiguate between a variable and a zero-argument-method that have the same name?
+in 20-num-repeats, I can see how: num_repeats is a variable and also a one-argument method.
+
+difference between .each do { |stuff| stuff } (is this one even valid?), .each do |stuff| stuff end, and for val in array stuff end?
+
+ANSWERED:
+what is :dog? is it a variable? a symbol? a record?
+A: they are symbols
