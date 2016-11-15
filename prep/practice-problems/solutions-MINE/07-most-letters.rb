@@ -5,7 +5,21 @@
 # Difficulty: medium.
 
 def nearby_az(string)
+  
+  idx= 0
+  while idx < string.length-1
+    letter= string[idx]
     
+    if letter == 'a'
+      if /z/ =~ string[idx+1, 3] # basic pattern-matching regexp to string
+        return true
+      end
+    end
+    
+    idx+= 1
+  end
+  
+  return false
 end
 
 # These are tests to check that your code is working. After writing
@@ -14,8 +28,9 @@ end
 puts('nearby_az("baz") == true: ' + (nearby_az('baz') == true).to_s)
 puts('nearby_az("abz") == true: ' + (nearby_az('abz') == true).to_s)
 puts('nearby_az("abcz") == true: ' + (nearby_az('abcz') == true).to_s)
-puts('nearby_az("abcdz") == true: ' + (nearby_az('abcdz') == false).to_s)
-puts('nearby_az("abcdez") == true: ' + (nearby_az('abcdez') == false).to_s)
+puts('nearby_az("abcdz") == false: ' + (nearby_az('abcdz') == false).to_s)
+puts('nearby_az("abcdez") == false: ' + (nearby_az('abcdez') == false).to_s)
+puts('nearby_az("abcdefaz") == true: ' + (nearby_az('abcdefaz') == true).to_s)
 puts('nearby_az("a") == false: ' + (nearby_az('a') == false).to_s)
 puts('nearby_az("z") == false: ' + (nearby_az('z') == false).to_s)
 puts('nearby_az("za") == false: ' + (nearby_az('za') == false).to_s)
