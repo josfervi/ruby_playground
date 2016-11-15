@@ -3,39 +3,73 @@
 #
 # Difficulty: medium.
 
-# You may use our `is_prime?` solution.
 def is_prime?(number)
-  if number <= 1
-    # only numbers > 1 can be prime.
-    return false
+  
+  if number   == 2 then  return true   end
+  if number%2 == 0 then  return false  end
+  if number   == 3 then  return true   end
+  if number%3 == 0 then  return false  end
+  
+  square_root= Math.sqrt(number).to_i # .to_i is not necessary, but it doesn't hurt (9<9.5 is true)
+  
+  divisor= 5
+  while divisor <= square_root
+    
+    if number%divisor == 0 then  return false  end
+    
+    divisor+= 2
+    if number%divisor == 0 then  return false  end
+    
+    divisor+= 4
   end
-
-  idx = 2
-  while idx < number
-    if (number % idx) == 0
-      return false
-    end
-
-    idx += 1
-  end
-
+  # note the sequence of divisors, 5,7,11,13,17,19,23,25,29,31... <- these are the set of numbers not divisible by either 2 or 3 or both
+  
   return true
 end
 
 def nth_prime(n)
-  prime_num = 0
-
-  i = 2
-  while true
-    if is_prime?(i)
-      prime_num += 1
-      if prime_num == n
-        return i
-      end
-    end
-
-    i += 1
+  
+  primes= [2,3]
+  
+  sixer= 6
+  3.times do
+    primes+= [sixer-1, sixer+1]
+    sixer+= 6
   end
+  
+  # primes= [2,3 5,7, 11,13, 17,19]
+  
+  if n-1 < primes.length then  return primes[n-1]  end
+  
+  candidate= 23
+  add2=      true
+  until primes[n-1] do # awesome!!!, do is optional but I'll leave it, I like the way it reads!!!
+  
+    idx= 2
+    prime= primes[2]
+    square_root= Math.sqrt(candidate).to_i
+    candidate_is_prime= true # unknown, but will be falsified in ln 57 if it's actually false
+    
+    while prime <= square_root
+    
+      if candidate%prime == 0
+        # candidate is divisible by prime
+        candidate_is_prime= false
+        break
+      end
+      
+      idx+= 1
+      prime= primes[idx]
+    end
+    
+    if candidate_is_prime then primes.push(candidate) end
+    
+    
+    if add2 then candidate+= 2 else candidate+= 4 end
+    add2= !add2 # toggle add2
+  end
+  
+  return primes[n-1]
 end
 
 # These are tests to check that your code is working. After writing
