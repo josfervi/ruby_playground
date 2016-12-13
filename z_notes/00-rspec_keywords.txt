@@ -1,0 +1,19 @@
+# rspec keywords
+
+describe <string>|<class> <block>
+
+before <block>
+
+it <string> <block>
+
+specify <string> <block>
+
+expect().to eq(0)
+expect().to be_within(0.1).of(1)
+expect().to be_truthy
+
+after
+
+# stubs
+allow(Time).to receive(:now).and_return(@eleven_am)
+allow(Time).to receive(:now) { fake_time }

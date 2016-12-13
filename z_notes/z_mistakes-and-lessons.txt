@@ -1,0 +1,88 @@
+ruby does not support i++ nor i--
+
+use return to return early
+
+"my".upcase #=> "MY"
+"MY".downcase #= "my"
+
+array.empty?
+
+array.first
+
+"   my string has leading and trailing spaces   ".split #=> ["my", "string", "has", "leading", "and", "trailing", "spaces"]
+
+next # to skip an iteration
+
+N= numbers.length # dynamic constant assignment (SyntaxError)
+ ^
+capitalization matters
+
+returning from a Proc is confusing (http://stackoverflow.com/questions/1435743/why-does-explicit-return-make-a-difference-in-a-proc)
+
+not all the provided solutions are the best solutions
+
+
+# @book is a Book object
+@book.title = "inferno"
+^ may seem like a variable assignment but this is actually a method call equivalent to the syntax:
+@book.title=( "inferno" )
+
+another example
+# alice is a Person object
+  alice.age=(17)
+is the same as
+  alice.age = 17
+Technically, it's not an assignment, it's a method call
+But it looks like an assignment!
+more here:
+https://newcircle.com/bookshelf/ruby_tutorial/classes
+
+you can add methods to established classes
+as I have done with the String class
+to which I added the isOneOf? method as follows:
+  class String
+    def isOneOf?( strings )
+      strings.include? self
+    end
+  end
+
+
+the meaning of %w
+%w creates an array based on the words in it (whitespace separated).
+So
+  %w(the and over)
+Will become
+  ["the", "and", "over"]
+
+the meaning of yet other similar terms: e.g. %W
+https://simpleror.wordpress.com/2009/03/15/q-q-w-w-x-r-s/
+
+
+a class atrribute
+An attribute is a property with named getter and/or setter methods
+Usually corresponds to an instance variable
+#
+You may use the different accessors to communicate your intent to someone reading your code,
+and make it easier to write classes which will work correctly no matter how their public API is called.
+#
+  attr_writer :age
+Gets translated into:
+  def age=(value)
+    @age = value
+  end
+#
+  attr_reader :age
+Gets translated into:
+  def age
+    @age
+  end
+#
+  attr_accessor :age
+Gets translated into:
+  def age=(value)
+    @age = value
+  end
+  #
+  def age
+    @age
+  end

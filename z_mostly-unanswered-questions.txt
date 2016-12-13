@@ -19,6 +19,22 @@ in 20-num-repeats, I can see how: num_repeats is a variable and also a one-argum
 
 difference between .each do { |stuff| stuff } (is this one even valid?), .each do |stuff| stuff end, and for val in array stuff end?
 
+in:
+1 class Book
+2  def title=(new_title)
+3    @title= titleize(new_title)
+4  end
+5  ...
+6 end
+how does ruby know that line 3 is not the alternate syntax of @title=(titleize(new_title))
+it's a good thing that ruby knows not to call @title=(titleize(new_title)) because that would result in infinite recursive calls
+but how does ruby know?
+#
+may be related: "Inside an object, you can't call that object's setter methods directly"
+                from https://newcircle.com/bookshelf/ruby_tutorial/classes
+
+is @ a shortcut for self?
+
 ANSWERED:
 what is :dog? is it a variable? a symbol? a record?
 A: they are symbols
