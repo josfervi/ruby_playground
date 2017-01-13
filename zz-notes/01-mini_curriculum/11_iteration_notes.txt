@@ -1,0 +1,24 @@
+ITERATION
+
+every line of code you don't have to write is one fewer to debug
+
+USE Array#each instead of for:
+For boring reasons, for is not recommended for use.
+You'll see plenty of Python code use for this way, but satisfy yourself with using #each
+#
+Boring reason: the iterator variable
+(i.e. item in the above for loop construct example)
+is still bound after exiting the loop.
+This doesn't happen with each.
+
+
+instead of
+  (1..10).to_a.reverse.each {|i| puts i}
+use
+  10.downto(1).each {|i| puts i}
+
+unclear, abstract index names are a major source of confusion and bugs.
+Here names like num1 and num2 would make things clearer.
+
+Avoid deep nesting. Nested code should be split out into methods.
+Two levels deep is usually okay, more is almost always bad.

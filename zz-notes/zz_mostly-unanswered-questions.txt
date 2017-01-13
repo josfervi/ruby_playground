@@ -19,21 +19,29 @@ in 20-num-repeats, I can see how: num_repeats is a variable and also a one-argum
 
 difference between .each do { |stuff| stuff } (is this one even valid?), .each do |stuff| stuff end, and for val in array stuff end?
 
-in:
-1 class Book
-2  def title=(new_title)
-3    @title= titleize(new_title)
-4  end
-5  ...
-6 end
-how does ruby know that line 3 is not the alternate syntax of @title=(titleize(new_title))
-it's a good thing that ruby knows not to call @title=(titleize(new_title)) because that would result in infinite recursive calls
-but how does ruby know?
+from 14-array_extensions.rb
+Q1: when i do [1,2,3].square I get a NoMethodError:
+       undefined method `is_not_a?' for 1:Fixnum
+    but I've defined is_not_a? for Object and Fixnum inherits from Object
+    so shouldn't is_not_a? exist for Fixnum?
 #
-may be related: "Inside an object, you can't call that object's setter methods directly"
-                from https://newcircle.com/bookshelf/ruby_tutorial/classes
-
-is @ a shortcut for self?
+Q2: how can use a decorator to do the error handling of lns 3-5
+    this would help me not repeat myself as I do this same error handling in Array#square! and Array#sum
+#
+ 1  class Array
+ 2    def square
+ 3      if self.any? {|x| x.is_not_a? Numeric}
+ 4        raise TypeError, "array contains non-numeric elements; array must not contain non-numeric elements"
+ 5      end
+ 6      self.map {|x| x**2}
+ 7    end
+ 8  end
+ 9  
+10  def Object
+11    def is_not_a? cls
+12      ! self.is_a? cls
+13    end
+14  end
 
 ANSWERED:
 what is :dog? is it a variable? a symbol? a record?

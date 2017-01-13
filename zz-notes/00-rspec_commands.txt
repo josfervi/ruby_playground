@@ -1,0 +1,3 @@
+bundle exec rspec spec/xx_filename_spec.rb  # to run tests for xx_filenema.rb
+
+bundle exec rspec spec --no-fail-fast # to run all tests for all .rb's

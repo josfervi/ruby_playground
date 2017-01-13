@@ -1,3 +1,10 @@
+# most idiomatic
+arr.each_with_index do |val, idx|
+  puts "idx: " + idx.to_s + " val: " + val.to_s
+end
+
+
+
 # how to achieve python's enumerate(list) in ruby
 
 arr= ["first", "second", "third"]

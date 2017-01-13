@@ -1,0 +1,37 @@
+# rspec keywords
+
+describe <string>|<class> <block>
+
+before <block>
+
+it <string> <block>
+
+specify <string> <block>
+
+expect().to eq(0)
+expect().to be_within(0.1).of(1)
+expect().to be_truthy
+
+function(args).should == expected_result
+
+# dictionaries
+letter_count("cat").should == {
+      "c" => 1,
+      "a" => 1,
+      "t" => 1
+    }
+
+after
+
+# stubs
+allow(Time).to receive(:now).and_return(@eleven_am)
+allow(Time).to receive(:now) { fake_time }
+
+# respond_to(:sum)
+describe Array do
+  describe "#sum" do
+    it "has a #sum method" do
+      expect([]).to respond_to(:sum)
+    end
+    ...
+       

@@ -12,10 +12,11 @@ class Book
   # end
   
   def title=(new_title)
-    @title= titleize(new_title)
+    @title= Book.titleize(new_title)
   end
   
-  def titleize(title)
+  # titleize is a class method of the Book class, it is called as follows: Book.titleize(title)
+  def self.titleize(title)
     words= title.split(" ")
     
     # always capitalize the first word in the title

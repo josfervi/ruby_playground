@@ -1,0 +1,297 @@
+ruby does not support i++ nor i--
+
+use return to return early
+
+"my".upcase #=> "MY"
+"MY".downcase #= "my"
+
+array.empty?
+
+array.first
+
+"   my string has leading and trailing spaces   ".split #=> ["my", "string", "has", "leading", "and", "trailing", "spaces"]
+
+next # to skip an iteration
+
+N= numbers.length # dynamic constant assignment (SyntaxError)
+ ^
+capitalization matters
+
+returning from a Proc is confusing (http://stackoverflow.com/questions/1435743/why-does-explicit-return-make-a-difference-in-a-proc)
+
+not all the provided solutions are the best solutions
+
+
+# @book is a Book object
+@book.title = "inferno"
+^ may seem like a variable assignment but this is actually a method call equivalent to the syntax:
+@book.title=( "inferno" )
+
+another example
+# alice is a Person object
+  alice.age=(17)
+is the same as
+  alice.age = 17
+Technically, it's not an assignment, it's a method call
+But it looks like an assignment!
+more here:
+https://newcircle.com/bookshelf/ruby_tutorial/classes
+
+you can add methods to established classes
+as I have done with the String class
+to which I added the isOneOf? method as follows:
+  class String
+    def isOneOf?( strings )
+      strings.include? self
+    end
+  end
+
+
+the meaning of %w
+%w creates an array based on the words in it (whitespace separated).
+So
+  %w(the and over)
+Will become
+  ["the", "and", "over"]
+
+the meaning of yet other similar terms: e.g. %W
+https://simpleror.wordpress.com/2009/03/15/q-q-w-w-x-r-s/
+
+
+a class atrribute
+An attribute is a property with named getter and/or setter methods
+Usually corresponds to an instance variable
+#
+You may use the different accessors to communicate your intent to someone reading your code,
+and make it easier to write classes which will work correctly no matter how their public API is called.
+#
+  attr_writer :age
+Gets translated into:
+  def age=(value)
+    @age = value
+  end
+#
+  attr_reader :age
+Gets translated into:
+  def age
+    @age
+  end
+#
+  attr_accessor :age
+Gets translated into:
+  def age=(value)
+    @age = value
+  end
+  #
+  def age
+    @age
+  end
+
+# * classes
+# * instance variables
+#   * attribute - an instance variable with accessor methods
+#   * attr_reader, attr_writer, attr_accessor are shortcuts for vanilla getter/setter methods
+# * def initialize to initialize an instance variable
+# * string formatting
+#   * Favor the use of sprintf and its alias format over the fairly cryptic String#% method.
+
+ABOUT self vs @
+When you use @lines, you are accessing the instance variable itself.
+self.lines actually goes through the lines method of the class;
+likewise, self.lines = x goes through the lines= method.
+So use @ when you want to access the variable directly, and
+self. when you want to access via the method.
+#
+# ^ this answers the following question v:
+  1 class Book
+  2  def title=(new_title)
+  3    @title= titleize(new_title)
+  4  end
+  5  ...
+  6 end
+how does ruby know that line 3 is not the alternate syntax of @title=(titleize(new_title))
+it's a good thing that ruby knows not to call @title=(titleize(new_title)) because that would result in infinite recursive calls
+but how does ruby know?
+#
+may be related: "Inside an object, you can't call that object's setter methods directly"
+                from https://newcircle.com/bookshelf/ruby_tutorial/classes
+
+how to make a method a class method
+# titleize is a class method of the Book class, it is called as follows: Book.titleize(title)
+#
+  class Book
+    def self.titleize(title)
+      ...
+    end
+  end
+
+
+To iterate through a hash
+hash.each do |key, value|
+  puts key, value
+end
+
+
+To check is something is a Hash
+entries.is_a? Hash
+
+
+To raise an exception
+raise TypeError, "entries must be a Hash or a String"
+
+#WHAT I LEARNED FROM 11-dictionary
+# h= Hash.new
+#
+# many problems can be solved by iterating through the hash
+# h.each do |key, value|
+#   ...
+# end
+#
+# use is_a? to verify object type
+# entry.is_a? Hash
+#
+# raise exceptions using raise
+# raise TypeError, "error message here"
+#
+# to turn string prefix into a regexp
+# /#{prefix}/
+# then to find the index where a word matches that regexp
+# regexp.match word
+# or
+# regexp =~ word
+# e.g.
+# /#{"fi"}/.match "find" #=> 0
+#
+# review the following good methods
+#
+#   def find prefix
+#    
+#     matches= Hash.new
+#    
+#     @entries.each do |key, value|
+#       matches[key]= value if /#{prefix}/.match key
+#     end
+#    
+#     matches
+#   end
+#  
+#   def printable
+#     str_entries= []
+#    
+#     @entries.each do |key, value|
+#       str_entries.push %Q{[#{key}] "#{value}"}
+#     end
+#    
+#     str_entries.sort.join("\n")
+#   end
+
+fail informatively
+
+
+ABOUT using map
+    tokens.map do |token|
+      case token
+      
+      when '+', '-', '*', '/'
+        token.to_sym
+      else
+        token.to_i
+      end
+    end
+
+OTHER Examples of map and map!
+class Array
+  def square
+    self.map {|x| x**2}
+  end
+  
+  def square!
+    self.map! {|x| x**2}
+  end
+
+can't change value of self, but you can change attributes/instance vars
+e.g. if self is an Array, you can't replace self with another Array,
+but you can replace self's items one by one
+
+ABOUT Integer, Fixnum and Bignum
+As of Ruby 2.4, the Fixnum and Bignum classes are gone, there is only Integer.
+The exact same optimizations still exist,
+but they are treated as "proper" compiler optimizations, i.e. behind the scenes,
+invisible to the programmer.
+#
+This is somewhat confusing. Integer is the real class that you should think about.
+Fixnum is basically a performance optimization
+that should never have been made visible to the programmer in the first place.
+
+ABOUT is_a?, kind_of?, instance_of?
+is_a? is an alias for kind_of?
+  kind_of? and is_a? are synonymous. both are available because sometimes one will read better
+    e.g. Think @honda.kind_of? Car and @person.is_a? Administrator
+instance_of? is different from the other two
+  in that it only returns true if the object is an instance of that exact class,
+  not a subclass.
+#
+Example:
+  "hello".is_a? Object and "hello".kind_of? Object return true because "hello"
+    is a String and String is a subclass of Object.
+  However "hello".instance_of? Object returns false.
+
+n Ruby, any variable whose name starts with a capital letter is a constant
+and you can only assign to it once (you can't assign it within a method)
+#
+wanted a constant named N within my method (its value does not change throughout
+a single method call), but couldn't do to the restriction above
+bypassed this restriction by naming my constant _N instead
+
+
+str.split("") and str.chars accomplish the same thing
+
+many arr.each { } loops can be replaced with arr.map { }
+e.g.
+the following pattern
+  res= []
+  arr.each do |x|
+    res << operation_on x
+  end
+can be replaced with
+  res= arr.map {|x| operation_on x
+
+
+
+use == or String#eq str to compare strings
+
+
+why can't you change the value of self
+
+1
+down vote
+In Ruby, values and variables are references (pointers to objects).
+Assigning to a variable simply makes it point to a different object;
+it has no effect on the object the variable used to point to.
+To change an object, you must call a method (including property getters/setters) on it.
+#
+You can think of self as a variable that points to the object the method was called on.
+If you could assign to it, you could make it point to another object.
+If you could do that, it would not alter the object the method was called on
+(so other variables that pointed to the original object would not see the change);
+instead, you would make it so that any following code in that method that uses self
+would use that object, not the object the method was called on.
+This would be super confusing, because self
+would no longer point to the object the method was called on,
+which is a basic assumption.
+
+
+
+ABOUT select
+# GENERAL use
+  arr.select {|item| condition_on item}
+evaluates to a list that includes only those items of arr that
+satisfy the condition: condition_on
+#
+  def word_unscrambler(str, words)
+    words.select {|word| str.is_an_anagram_of? word}
+  end
+words.select {|word| str.is_an_anagram_of? word}
+evaluates to a list that includes only those words in list words
+that satisfy the condition str.is_an_anagram_of? word
+#
